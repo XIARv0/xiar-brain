@@ -1,0 +1,9 @@
+{"kind":"correction","action":"send_email","outcome":"rejected","why":"owner wants drafts first, never send directly"}
+{"kind":"preference","topic":"reports","value":"short bullet points, no tables, UTC times"}
+{"kind":"mistake","action":"terminal: rm -rf build/","outcome":"failure","why":"deleted cached artifacts the owner needed; ask before deleting"}
+{"kind":"approval","action":"git commit -m 'Phase5: brain'","outcome":"approved"}
+{"kind":"outcome","action":"web_search: titans memory release","outcome":"success","why":"cite sources with links"}
+owner prefers: call the project XIAR, never by an old code name
+failed before: this environment has no GPU; run CUDA jobs on a machine that does
+owner rejected: moving Hermes folders; use mirrors/adapters instead
+lesson: snapshot before major system changes

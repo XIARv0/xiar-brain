@@ -1,0 +1,94 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md
+# Local development only. Do not install this file at /etc/xiar/autonomy.toml.
+# Use with: XIAR_AUTONOMY_DEV=1 XIAR_AUTONOMY_CONFIG=$XIAR_ROOT/config/autonomy.dev.toml
+# Relative paths resolve against $XIAR_ROOT. See docs/autonomy.md.
+
+[policy]
+max_args_bytes = 65536
+read_tools = ["read_file", "search_files", "list_directory", "glob", "grep"]
+write_tools = ["write_file", "patch", "edit_file", "apply_patch"]
+free_read_tools = ["xiar_memory_search", "xiar_mental_model"]
+free_write_tools = ["xiar_record_lesson"]
+read_native = []
+free_write_native = []
+ask_native = []
+write_native = []
+space_roots = []
+maintained_roots = []
+secret_roots = ["/etc/shadow", "/etc/gshadow", "/etc/ssl/private", "/etc/xiar"]
+security_roots = ["/etc", "/boot", "/sys", "/proc"]
+secret_fragments = [".key", "/.env", "/.ssh/", "/.gnupg/", "/secrets/", "/vault/", "/credentials/", "-token", "tokens.json"]
+never_read_fragments = ["/lessons/", "/lesson-store/", "/trainer-only/"]
+
+[control]
+broker_socket = "data/dev/broker.sock"
+state_probe_timeout_s = 1.0
+state_file = "data/dev/autonomy-state.json"
+policy_file = "config/autonomy.dev.toml"
+max_pending = 256
+orphan_after_s = 300
+approval_ttl_s = 300
+poll_s = 1.0
+
+[drive]
+enabled = false
+desktop_uid = 0
+runtime_dir = ""
+project_root = ""
+helper = ""
+hyprctl = "/usr/bin/hyprctl"
+wtype = "/usr/bin/wtype"
+ydotool = "/usr/bin/ydotool"
+ydotool_socket = ""
+indicator_file = ""
+indicator_helper = ""
+indicator_parent_executable = ""
+indicator_lease_s = 3.0
+chrome_unit = ""
+chrome_qml = ""
+chrome_start_timeout_s = 30.0
+command_timeout_s = 10
+helper_memory_mb = 128
+helper_max_tasks = 16
+max_text_bytes = 4096
+allowed_keys = ["Return", "Tab", "Escape", "BackSpace", "Delete", "Left", "Right", "Up", "Down", "Home", "End", "Page_Up", "Page_Down", "space"]
+max_actions_per_minute = 60
+max_session_s = 300
+allowed_window_classes = []
+sensitive_window_classes = []
+
+[undo]
+max_file_bytes = 8388608
+max_total_bytes = 16777216
+max_files = 8
+allowed_paths = ["config/llm_runtime.toml", "config/settings_panel.toml", "config/hermes_adapter.toml", "config/model_router.toml", "config/subagent_dispatch.toml", "config/screen.toml", "config/downloads.toml"]
+[undo.native_paths]
+runtime_set = ["config/llm_runtime.toml"]
+memory_set = ["config/hermes_adapter.toml", "config/settings_panel.toml"]
+memory_retrieval_set = ["config/hermes_adapter.toml", "config/settings_panel.toml"]
+connection_upsert = ["config/llm_runtime.toml"]
+vision_set = ["config/screen.toml"]
+dl_set_dir = ["config/downloads.toml"]
+connection_remove = ["config/llm_runtime.toml"]
+connection_main = ["config/llm_runtime.toml"]
+ollama_add_server = ["config/settings_panel.toml"]
+ollama_remove_server = ["config/settings_panel.toml"]
+ollama_make_main = ["config/settings_panel.toml"]
+
+[inspect]
+max_entries = 256
+max_config_bytes = 1048576
+max_log_bytes = 262144
+timezone = "UTC"
+code_roots = ["core/rust/crates", "integrations"]
+config_files = ["config/hermes_adapter.toml"]
+hermes_config = ""
+session_dir = ""
+hermes_log_dir = ""
+hermes_logs = []
+skip_dirs = ["node_modules", "target", ".git", "__pycache__", "venv", ".venv", "secrets", "lessons"]
+
+[power]
+full_agents = []

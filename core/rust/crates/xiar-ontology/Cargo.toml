@@ -1,0 +1,23 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md
+[package]
+name = "xiar-ontology"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true
+
+# The ontology service as a library: scout, engineer and critic agents, versioned registry, promotion, query expansion.
+[dependencies]
+xiar-owl = { path = "../xiar-owl" }
+xiar-llm = { path = "../xiar-llm" }
+xiar-prompts = { path = "../xiar-prompts" }
+xiar-store = { path = "../xiar-store" }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+thiserror = "2"

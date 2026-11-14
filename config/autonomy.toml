@@ -1,0 +1,107 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md
+# Production template. Root installs a reviewed copy at /etc/xiar/autonomy.toml
+# (regular file, root-owned, not group/other-writable). See docs/autonomy.md.
+# Paths below use portable /etc, /var, /opt and /run locations; add your own
+# project roots under policy.space_roots / security_roots when you install this.
+
+[policy]
+max_args_bytes = 65536
+read_tools = ["read_file", "search_files", "list_directory", "glob", "grep"]
+write_tools = ["write_file", "patch", "edit_file", "apply_patch"]
+free_read_tools = ["ui_list_views", "xiar_drive_status", "inspect_code_tree", "inspect_config", "inspect_processes", "inspect_logs", "inspect_hardware", "inspect_sessions", "inspect_agent_logs", "inspect_memory_catalogue", "xiar_memory_search", "xiar_mental_model", "list_running", "queue_status", "xiar_queue_status", "godseye_history"]
+free_write_tools = ["ui_open_view", "ui_close_view", "ui_update_view", "xiar_record_lesson", "xiar_screen_watch", "spawn_subagent", "delegate_task", "xiar_dispatch", "cancel_subagent", "xiar_forecast", "xiar_forecast_outcome"]
+read_native = ["swipe_state", "swipe_note", "swipe_judges", "godseye_status", "vault_streams", "godseye_forecasts", "forecasting_status", "forecast_swipe_state", "ui_list_views", "ui_state", "dl_system", "dl_search", "dl_local", "dl_status", "vision_get", "vision_test", "loops_status", "screen_status", "modelfind_folder", "modelfind_scan", "modelfind_wsl_places", "knowledge_list", "memory_view_counts", "memory_view_list", "ollama_servers", "ollama_models", "pick_file", "pick_folder", "panel_get", "runtime_get", "memory_state", "catalogue", "connection_list", "connection_status", "connection_health", "modelpaths_list", "modelfind_places", "modelfind_mapped", "memory_retrieval_state", "workspace_models", "workspace_bases", "workspace_groups", "agents_list", "agents_check", "agents_events", "chatbots_list", "voice_catalogue", "voice_status", "voice_test", "voice_benchmark", "agent_templates"]
+free_write_native = ["swipe_vote", "swipe_judge_now", "forecast_swipe_vote", "forecast_swipe_judge_now", "ui_open_view", "ui_close_view", "ui_update_view", "godseye_start", "godseye_stop", "knowledge_add", "knowledge_remove", "memory_view_delete"]
+ask_native = ["agent_scope", "agents_upsert", "agents_resync", "workspace_save", "workspace_group_save"]
+write_native = ["vault_stream_add", "vault_stream_settings", "vault_stream_save", "vault_stream_token", "godseye_forecasts_set", "forecasting_set", "forecasting_model_add", "forecasting_model_remove", "forecasting_laya_activate", "dl_start", "dl_stop", "dl_resume", "dl_set_dir", "vision_set", "vision_stop", "runtime_set", "memory_set", "memory_retrieval_set", "connection_start", "connection_stop", "connection_main", "connection_upsert", "connection_remove", "modelpaths_add", "modelpaths_remove", "modelfind_map", "modelfind_unmap", "memory_reindex", "ontology_build", "workspace_delete", "chatbot_delete", "agent_activate", "ollama_add_server", "ollama_remove_server", "ollama_make_main", "voice_install", "voice_remove", "voice_select", "voice_noncommercial", "voice_agent_set", "voice_chatterbox_set"]
+# Add project workspaces you want file tools to be able to touch, e.g. ["/home/you/xiar-os/Brain"].
+space_roots = []
+# Owner-marked source maintenance grants have not been decided. Do not assume them.
+maintained_roots = []
+secret_roots = ["/etc/shadow", "/etc/gshadow", "/etc/ssl/private", "/etc/xiar", "/var/lib/xiar-scheduler"]
+security_roots = ["/etc", "/boot", "/sys", "/proc"]
+secret_fragments = [".key", "/.env", "/.ssh/", "/.gnupg/", "/secrets/", "/vault/", "/credentials/", "-token", "tokens.json"]
+never_read_fragments = ["/lessons/", "/lesson-store/", "/trainer-only/"]
+
+[control]
+broker_socket = "/run/xiar-agent-control/broker.sock"
+state_probe_timeout_s = 1.0
+state_file = "/etc/xiar/autonomy-state.json"
+policy_file = "/etc/xiar/autonomy.toml"
+max_pending = 256
+# a transaction that began and never finished for this long is reconciled (never replayed): unchanged -> failed, changed -> uncertain
+orphan_after_s = 300
+approval_ttl_s = 300
+poll_s = 1.0
+
+# Optional desktop-drive helpers. Not required for memory writes. Leave paths as
+# installed on your machine, or disable drive.enabled.
+[drive]
+helper = "/opt/xiar/drive/xiar-drive-helper"
+hyprctl = "/usr/bin/hyprctl"
+wtype = "/usr/bin/wtype"
+ydotool = "/usr/bin/ydotool"
+ydotool_socket = "/run/xiar-drive/ydotool.sock"
+# Empty runtime_dir / desktop_uid=0: detect XDG_RUNTIME_DIR or /run/user/<uid>.
+runtime_dir = ""
+desktop_uid = 0
+indicator_file = "/run/xiar-drive/state.json"
+indicator_helper = "/opt/xiar/drive/indicator.py"
+indicator_parent_executable = "/opt/xiar/quickshell/bin/qs"
+indicator_lease_s = 3.0
+chrome_unit = "xiar-desktop-chrome.service"
+chrome_qml = "/opt/xiar/config/quickshell/shell.qml"
+chrome_start_timeout_s = 30.0
+# Empty: use $XIAR_ROOT.
+project_root = ""
+command_timeout_s = 10
+helper_memory_mb = 128
+helper_max_tasks = 16
+max_text_bytes = 4096
+allowed_keys = ["Return", "Tab", "Escape", "BackSpace", "Delete", "Left", "Right", "Up", "Down", "Home", "End", "Page_Up", "Page_Down", "space"]
+enabled = false
+max_actions_per_minute = 60
+max_session_s = 300
+allowed_window_classes = []
+sensitive_window_classes = []
+
+[undo]
+max_file_bytes = 8388608
+max_total_bytes = 16777216
+max_files = 8
+# Only non-secret configuration references; no credential files or live databases.
+allowed_paths = ["config/llm_runtime.toml", "config/settings_panel.toml", "config/hermes_adapter.toml", "config/model_router.toml", "config/subagent_dispatch.toml", "config/screen.toml", "config/downloads.toml"]
+[undo.native_paths]
+runtime_set = ["config/llm_runtime.toml"]
+memory_set = ["config/hermes_adapter.toml", "config/settings_panel.toml"]
+memory_retrieval_set = ["config/hermes_adapter.toml", "config/settings_panel.toml"]
+connection_upsert = ["config/llm_runtime.toml"]
+vision_set = ["config/screen.toml"]
+dl_set_dir = ["config/downloads.toml"]
+connection_remove = ["config/llm_runtime.toml"]
+connection_main = ["config/llm_runtime.toml"]
+ollama_add_server = ["config/settings_panel.toml"]
+ollama_remove_server = ["config/settings_panel.toml"]
+ollama_make_main = ["config/settings_panel.toml"]
+
+[inspect]
+max_entries = 256
+max_config_bytes = 1048576
+max_log_bytes = 262144
+# Empty / "system": use $TZ or the host timezone, else UTC.
+timezone = "UTC"
+code_roots = ["core/rust/crates", "integrations", "GUI/src", "Brain/Templates"]
+config_files = ["config/llm_runtime.toml", "config/hermes_adapter.toml", "config/settings_panel.toml", "config/model_router.toml", "config/subagent_dispatch.toml", "config/scheduler.toml"]
+# Optional Hermes paths, relative to the owner home. Leave empty to skip.
+hermes_config = ""
+session_dir = ""
+hermes_log_dir = ""
+hermes_logs = ["agent.log", "errors.log", "gateway.log"]
+skip_dirs = ["node_modules", "target", ".git", "__pycache__", "venv", ".venv", "secrets", "lessons"]
+
+# Agent slugs that skip action tiers, ask-first and folder limits. The emergency
+# stop still applies. Empty by default; add slugs only after an explicit decision.
+[power]
+full_agents = []

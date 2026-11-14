@@ -1,0 +1,102 @@
+/* SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com> */
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+/* Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md */
+/* Swipe Deck (Menu > Panels > Swipe Deck): a full-screen page laid out like Galaxy's Swipe Deck. No holo panel and no holo table (the models by family stand in the table's place).
+   Layers, back to front: the menu's clouds (page backdrop, z -1), the arena (z 2), the deck columns (z 10), the chat bar and logo (z 20, the page's own), the model reader (z 30).
+   The page layer lets clicks through; only the columns, the card and the modal take them. Colours come from the holo tokens. */
+.sd { position: fixed; inset: 0; z-index: 2; pointer-events: none; color: var(--holo-ink); font: 0.78rem var(--holo-font-mono); }
+.sd > * { pointer-events: auto; }
+.sd-arena { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+.sd-arena canvas { width: 100% !important; height: 100% !important; display: block; }
+.sd-tag { position: absolute; left: 0; top: 0; pointer-events: none; font: 700 0.62rem var(--holo-font-mono); letter-spacing: 0.12em; text-transform: uppercase; text-shadow: 0 0 8px currentColor; white-space: nowrap; }
+.sd-hover { position: absolute; z-index: 10; left: 50%; top: 26px; transform: translateX(-50%); max-width: 40%; text-align: center; font-size: 0.66rem; opacity: 0.75; pointer-events: none !important; text-shadow: 0 0 6px black; }
+.sd-back { position: absolute; z-index: 10; top: 18px; left: 262px; font: 600 0.72rem var(--holo-font-mono); letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: var(--holo-ink);
+  background: var(--holo-surface); border: var(--border-hair) solid var(--holo-accent-dim); border-radius: var(--holo-radius); padding: 7px 12px; }
+.sd-back:hover { border-color: var(--holo-accent); box-shadow: 0 0 10px var(--holo-accent-glow); }
+
+/* left: title, score, quests, judges, log */
+.sd-left { position: absolute; z-index: 10; left: 24px; top: 118px; bottom: 24px; width: min(410px, 30vw); min-width: 340px; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; padding-right: 6px; scrollbar-width: thin; }
+.sd-eyebrow { font-size: 0.64rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.6; }
+.sd-title { margin: -6px 0 0; font: 600 3.1rem/1.05 var(--holo-title-font, inherit); letter-spacing: -0.01em; background: linear-gradient(90deg, #ff5aa6, #8e5bff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.sd-sub { margin: 0; opacity: 0.75; line-height: 1.45; max-width: 36ch; }
+.sd-points { margin: 0; font-size: 0.62rem; letter-spacing: 0.06em; opacity: 0.7; }
+.sd-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.sd-stat { display: flex; flex-direction: column; gap: 2px; padding: 8px 10px; border: var(--border-hair) solid var(--holo-accent-dim); border-radius: calc(var(--holo-radius) * 1.5); background: color-mix(in srgb, black 40%, transparent); backdrop-filter: blur(4px); }
+.sd-stat[data-hot='true'] { border-color: #f5c542; }
+.sd-stat span { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; }
+.sd-stat b { font-size: 1.4rem; } .sd-stat i { font-size: 0.58rem; font-style: normal; opacity: 0.6; margin-left: 3px; }
+.sd-good { color: #3dff9a; } .sd-bad { color: #ff5a78; }
+
+.sd-quests { display: flex; flex-direction: column; gap: 6px; padding: 10px; border: var(--border-hair) solid var(--holo-accent-dim); border-radius: calc(var(--holo-radius) * 1.5); background: color-mix(in srgb, black 40%, transparent); backdrop-filter: blur(4px); }
+.sd-quests-top { display: flex; justify-content: space-between; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.85; }
+.sd-streak { color: #ffb347; letter-spacing: 0.06em; }
+.sd-quest { position: relative; display: flex; justify-content: space-between; gap: 8px; padding: 5px 8px; border-radius: var(--holo-radius); background: color-mix(in srgb, white 5%, transparent); overflow: hidden; font-size: 0.72rem; }
+.sd-quest > * { position: relative; z-index: 1; } .sd-quest em { font-style: normal; opacity: 0.75; }
+.sd-quest i { position: absolute; z-index: 0; left: 0; top: 0; bottom: 0; background: color-mix(in srgb, #8e5bff 28%, transparent); transition: width 0.4s ease; }
+.sd-quest[data-done='true'] i { background: color-mix(in srgb, #3dff9a 30%, transparent); } .sd-quest[data-done='true'] span { color: #3dff9a; }
+.sd-note { margin: 4px 0 0; font-size: 0.62rem; opacity: 0.6; line-height: 1.35; }
+
+.sd-judges { border: var(--border-hair) solid var(--holo-accent-dim); border-radius: calc(var(--holo-radius) * 1.5); padding: 6px 10px; background: color-mix(in srgb, black 40%, transparent); backdrop-filter: blur(4px); }
+.sd-judges summary { cursor: pointer; font-size: 0.7rem; letter-spacing: 0.06em; }
+.sd-pick { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 6px; font-size: 0.7rem; }
+.sd-pick select { flex: 1; max-width: 62%; font: inherit; color: var(--holo-ink); background: color-mix(in srgb, black 60%, transparent); border: var(--border-hair) solid var(--holo-accent-dim); border-radius: var(--holo-radius); padding: 3px 6px; }
+.sd-judge { cursor: pointer; font: inherit; font-size: 0.7rem; padding: 5px 10px; color: var(--holo-ink); background: var(--holo-surface); border: var(--border-hair) solid var(--holo-accent-dim); border-radius: var(--holo-radius); }
+.sd-judge:disabled { opacity: 0.45; cursor: default; }
+.sd-reveal { margin: 0; padding: 6px 10px; border: var(--border-hair) solid var(--holo-accent); border-radius: var(--holo-radius); background: color-mix(in srgb, black 45%, transparent); }
+.sd-picked { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.65; }
+.sd-history ul { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.sd-history li { display: flex; flex-wrap: wrap; gap: 6px; align-items: baseline; padding: 5px 8px; border-radius: var(--holo-radius); background: color-mix(in srgb, black 40%, transparent); font-size: 0.68rem; }
+.sd-kind { font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.65; }
+.sd-link { cursor: pointer; font: inherit; color: var(--holo-accent); background: none; border: 0; padding: 0; text-decoration: underline dotted; text-align: left; }
+.sd-verdicts { display: flex; gap: 6px; margin-left: auto; font-size: 0.62rem; }
+.sd-error { margin: 0; color: #ff5a78; }
+
+/* right: the card to swipe, with the two rings behind it like Galaxy's */
+.sd-right { position: absolute; z-index: 10; right: 20px; top: 56px; bottom: 24px; width: min(390px, 27vw); min-width: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
+.sd-rings { position: absolute; left: 50%; top: 46%; translate: -50% -50%; width: 150%; aspect-ratio: 1; pointer-events: none; overflow: visible; fill: none; filter: drop-shadow(0 0 3px rgba(255, 45, 149, 0.35)); opacity: 0.8; }
+.sd-rings .hud-ticks { stroke: url(#sd-gold); fill: none; }
+.sd-rings .hud-line { stroke: url(#sd-gold); stroke-width: 0.45; fill: none; }
+.sd-rings .hud-band { stroke: url(#sd-pink); opacity: 0.55; fill: none; }
+.sd-rings .hud-seg { stroke: url(#sd-pink); fill: none; }
+.sd-rings .hud-glow { stroke-width: 0.8; stroke: url(#sd-pink); }
+.sd-rings .hud-fill { fill: #ff2d95; stroke: none; }
+.sd-rings .hud-bar { fill: url(#sd-gold); }
+.sd-rings .hud-num { font: 3.4px ui-monospace, monospace; fill: #f2cf72; text-anchor: middle; stroke: none; }
+.sd-spin { transform-box: view-box; transform-origin: 0 0; animation: sd-turn 120s linear infinite; }
+.sd-s1 { animation-duration: 240s; } .sd-s2 { animation-duration: 160s; animation-direction: reverse; } .sd-s3 { animation-duration: 200s; }
+.sd-s4 { animation-duration: 90s; animation-direction: reverse; } .sd-s5 { animation-duration: 60s; } .sd-s6 { animation-duration: 28s; animation-direction: reverse; }
+@keyframes sd-turn { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .sd-spin { animation: none; } }
+.sd-cardwrap { position: relative; width: 100%; min-height: 330px; display: grid; }
+.sd-card { position: relative; display: flex; flex-direction: column; gap: 9px; padding: 16px; border: var(--border-hair) solid var(--holo-accent-dim); border-radius: 26px; background: color-mix(in srgb, #14141c 90%, transparent); box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+  cursor: grab; touch-action: pan-y; user-select: none; transition: box-shadow 0.25s ease, transform 0.25s ease; }
+.sd-card:active { cursor: grabbing; }
+.sd-card[data-kind='use'] { border-color: #4ad0ff; } .sd-card[data-kind='outcome'] { border-color: #ff9a4a; } .sd-card[data-kind='suggest'] { border-color: #a07bff; }
+.sd-card[data-lean='heart'], .sd-card[data-flash='heart'] { box-shadow: 0 0 36px #3dff9a; } .sd-card[data-lean='skull'], .sd-card[data-flash='skull'] { box-shadow: 0 0 36px #ff3d5a; }
+.sd-card[data-flash='heart'] { transform: translateX(14px) rotate(2deg); } .sd-card[data-flash='skull'] { transform: translateX(-14px) rotate(-2deg); }
+.sd-card-top { display: flex; justify-content: space-between; font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.9; }
+.sd-agent { color: var(--holo-accent); border: 1px solid currentColor; border-radius: 999px; padding: 2px 9px; }
+.sd-task { margin: 0; font-size: 1.05rem; line-height: 1.35; font-family: inherit; }
+.sd-models { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.sd-model { width: 100%; display: flex; justify-content: space-between; gap: 8px; text-align: left; cursor: pointer; font: inherit; color: inherit; padding: 6px 9px; border: var(--border-hair) solid transparent; border-radius: var(--holo-radius); background: color-mix(in srgb, var(--holo-accent) 10%, transparent); }
+.sd-model:hover { border-color: var(--holo-accent); box-shadow: 0 0 10px var(--holo-accent-glow); }
+.sd-model em { font-style: normal; opacity: 0.7; }
+.sd-answer { margin: 0; padding: 7px 9px; border-left: 2px solid #ff9a4a; font-size: 0.72rem; line-height: 1.4; opacity: 0.92; }
+.sd-sealed { margin: 0; display: flex; gap: 10px; flex-wrap: wrap; font-size: 0.64rem; opacity: 0.75; } .sd-sealed span[data-judged='true'] { color: var(--holo-accent); }
+.sd-empty { cursor: default; } .sd-empty p { margin: 4px 0 0; opacity: 0.75; line-height: 1.4; }
+.sd-actions { display: flex; gap: 12px; width: 100%; }
+.sd-actions button { flex: 1; cursor: pointer; font: 700 0.9rem var(--holo-font-mono); padding: 10px; border-radius: 999px; background: color-mix(in srgb, black 55%, transparent); color: var(--holo-ink); }
+.sd-actions button:disabled { opacity: 0.4; cursor: default; }
+.sd-heart { border: var(--border-hair) solid #3dff9a; } .sd-heart:not(:disabled):hover { box-shadow: 0 0 14px #3dff9a; }
+.sd-skull { border: var(--border-hair) solid #ff3d5a; } .sd-skull:not(:disabled):hover { box-shadow: 0 0 14px #ff3d5a; }
+.sd-hint { margin: 0; font-size: 0.6rem; opacity: 0.55; text-align: center; line-height: 1.4; }
+
+.sd-modal { position: fixed; inset: 0; z-index: 30; display: grid; place-items: center; background: color-mix(in srgb, black 60%, transparent); backdrop-filter: blur(3px); }
+.sd-modal-box { width: min(680px, 90%); max-height: 86%; display: flex; flex-direction: column; gap: 8px; padding: 16px 18px; background: color-mix(in srgb, black 85%, transparent); border: var(--border-hair) solid var(--holo-accent); border-radius: 20px; box-shadow: 0 0 24px var(--holo-accent-glow); }
+.sd-modal-top { display: flex; align-items: baseline; gap: 10px; } .sd-modal-top b { font-size: 1.05rem; } .sd-modal-top span { opacity: 0.65; font-size: 0.68rem; } .sd-modal-top .sd-judge { margin-left: auto; }
+.sd-modal-when { margin: 0; font-size: 0.72rem; opacity: 0.8; line-height: 1.4; }
+.sd-modal-note { margin: 0; overflow-y: auto; white-space: pre-wrap; font: 0.76rem/1.55 var(--holo-font-mono); padding-right: 6px; }
+
+.sd-tip { position: fixed; left: 0; top: 0; z-index: 40; pointer-events: none; opacity: 0; max-width: 320px; padding: 5px 10px; border-radius: 8px; border: 1px solid var(--holo-accent-dim); background: color-mix(in srgb, #0c0c14 92%, transparent); color: #fff; font: 12px ui-monospace, monospace; white-space: nowrap; transition: opacity 0.12s ease; }
+.sd-rings .hud-alt { stroke: url(#sd-pink); }
+.sd-rings .hud-gold { stroke: url(#sd-gold); }

@@ -1,0 +1,106 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md
+# XIAR adapter plugin for Hermes (integrations/hermes-xiar). See HermesIntegration.md.
+# Paths are relative to XIAR_ROOT (repo root, e.g. ~/xiar-os).
+
+[brain]
+enabled     = true
+url         = "http://127.0.0.1:8770"         # neural brain (localhost)
+tokens_file = "~/.config/xiar/brain-tokens.json"   # writer+query tokens only (never admin, never the trainer key)
+timeout_s   = 2.0
+
+[memory]
+enabled     = true
+url         = "http://127.0.0.1:8771"          # xiar-memory-api (localhost)
+token_file  = "~/.config/xiar/memory-api-token"
+timeout_s   = 3.0
+ontology    = true                              # OntologyExpander on live search
+default_business = ""                           # set per profile/session; empty = tools must pass business_id
+auto_recall = false
+auto_recall_limit = 5
+
+[mental_models]
+enabled    = true
+dir        = "Brain/Shared/mental-models"       # mirror of the 99 notes + Index.md
+inject_top = 3
+judge      = true                               # the Swipe Deck bots that are on judge new cards in the background (owner picks them in the panel)
+laya_timeout_s = 20                             # how long Laya gets per batch of 8 models (the other jobs keep the 5 s default)
+families_top = 2                                # Laya scores the 8 families first, then every model in the best N families
+explore    = 2                                  # extra models from the other families that Laya also scores, so none is frozen out
+batch_size = 8
+confidence_min = 0.65
+max_query_chars = 1500
+score_levels = ["not relevant", "slightly relevant", "somewhat useful", "very useful", "directly applicable"]
+
+[gate]
+directive  = "approve"                          # approve | block | off
+confidence = 0.80
+labels     = ["fail", "rejected"]
+
+[capture]
+ok_sample_rate   = 0.2
+max_action_chars = 200
+max_why_chars    = 300
+deny_choices     = ["deny"]                 # Hermes choices: once|session|always|deny|timeout|smart_*
+ignore_choices   = ["timeout"]
+tool_failure_patterns = ['(?m)^(Error|ERROR|Traceback|fatal:|E: )', '(?i)permission denied', '(?i)command not found', '(?i)\btimed? ?out\b']
+correction_patterns   = ['(?i)^\s*(no|nope|wrong|stop|don.?t|do not|never|not like that|that.?s not|instead)\b', '(?i)\bi (said|told you)\b', '(?i)\bwhy did you\b']
+
+[laya]
+# The resident Laya service (integrations/llm-local/laya-runner: xiar-laya.service). Jobs fail open: no Laya, no action.
+enabled    = true
+url        = "http://127.0.0.1:8772"
+token_file = "~/.config/xiar/laya-token"
+timeout_s  = 5.0
+
+[laya.jobs]
+# UpgradePlan "Laya jobs", built in plan order. Each runs inside an xiar plugin hook (outside Hermes code).
+thinking_models = true
+correction_detection = true
+retrieval_strategy = true
+subagent_dispatch = true     # gated actual-child lifecycle via external native overlay
+model_routing = true        # purpose-authenticated per-profile external transport
+memory_routing = true        # job 1: MIRIX layer + business, and/or the neural brain (routing.py; hook pre_llm_call)
+
+[routing]
+# Job 1. Thresholds are the old gate's GateConfig defaults (gate.rs) except injection_block (xiar-router's question:
+# manipulation scored 1.0, the highest ordinary message 0.76 - LocalLLM.md section 11), plus the new questions.
+injection_block = 0.8
+worth_min       = 0.5
+duplicate_skip  = 0.8
+confidence_min  = 0.6
+secondary_layer = 0.3
+business_min    = 0.5        # Laya's business choice must reach this ...
+business_margin = 0.2        # ... and lead the next business by this, else the item waits for review
+lesson_confidence_min = 0.8  # behavioural-only gate; final measurement deferred with integrated tests
+brain_min       = 0.6        # "tells the assistant how to behave / a preference" -> also a brain lesson
+min_chars       = 12
+separate_questions = false   # true = one Laya call per question (measured: same answers, slower)
+max_chars       = 1500
+state_dir       = "~/.local/state/xiar"   # laya-routing.log (decisions only), memory-spool/, memory-review.jsonl
+# Layer options shown to Laya, in gate.rs LAYERS order (core, episodic, semantic, resource, knowledge_vault).
+# Bare names (the old gate) measured 2/12, these 9/12.
+layer_options = ["core: a lasting fact about the user", "episodic: a specific event that happened",
+                 "semantic: a general fact or concept", "resource: a document, file or link",
+                 "knowledge_vault: where sensitive information such as codes or account numbers is kept"]
+never_store_patterns = ['(?i)\b(password|passwd|api[_ -]?key|secret|token|private key)\b\s*[:=]', '\b(?:\d[ -]?){13,19}\b']
+# The businesses Laya may choose from when a session has no explicit memory.default_business. Empty = items wait for
+# review. Every write still names ONE business and xiar-memory-api enforces the token's tenant list.
+businesses = []
+
+# Token identity is server-bound; profile provisioning supplies a separate config/token
+# for every (Agent, end user). Bots must never load this adapter.
+[identity]
+agent_id = "xiar"
+end_user_id = "owner"
+
+[corrections]
+confidence_min = 0.80
+type_min = 0.60
+max_chars = 550
+
+[retrieval]
+confidence_min = 0.60
+max_query_chars = 1500
+max_limit = 50

@@ -1,0 +1,22 @@
+﻿# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md
+[package]
+name = "xiar-ontology-verify"
+version = "0.0.1"
+edition = "2021"
+publish = false
+
+[[bin]]
+name = "xiar-ontology-verify"
+path = "src/main.rs"
+
+[dependencies]
+redb = "3"
+serde_json = { version = "1", features = ["preserve_order"] }
+xiar-owl = { path = "../xiar-owl" }
+xiar-store = { path = "../xiar-store" }
+xiar-core = { path = "../xiar-core" }
+xiar-ontology = { path = "../xiar-ontology" }
+xiar-memory = { path = "../xiar-memory" }
+tempfile = "3"

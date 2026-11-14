@@ -1,0 +1,18 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md
+[Unit]
+Description=XIAR authenticated Agent lifecycle and native prefix facade
+After=network.target
+[Service]
+ExecStart=/usr/bin/python3 /opt/xiar/agent-control/server.py
+Environment=PYTHONPATH=/opt/xiar/agent-control/python
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=LD_PRELOAD=@SQLITE@
+User=root
+Group=root
+UMask=0077
+Restart=on-failure
+RestartSec=3
+[Install]
+WantedBy=multi-user.target

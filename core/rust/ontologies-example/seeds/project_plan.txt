@@ -1,0 +1,5 @@
+Project Example plan.
+Project Example is a Project led by Ingrid Solheim. Project Example uses Sensor Supply Co as its Vendor and Freight Partners for logistics.
+Project Example has two Milestones: Kickoff on 2 February and Delivery on 14 March.
+The Kickoff takes place in the Aurora meeting room. The Delivery review takes place in the Zenith meeting room.
+Maria Costa and Tomas Berg are the Engineers assigned to Project Example. The budget is 48,000 euros and Helena Park approved it.

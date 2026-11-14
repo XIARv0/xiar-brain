@@ -1,0 +1,20 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md
+[project]
+name = "xiar-hermes"
+version = "0.1.0"
+description = "XIAR adapter plugin for Hermes: NeuralBrain signals + experience capture, MIRIX tenant memory search with ontology expansion, 99 mental models. Lives OUTSIDE Hermes folders."
+requires-python = ">=3.11"
+license = { text = "AGPL-3.0-or-later" }
+dependencies = []
+
+[project.entry-points."hermes_agent.plugins"]
+xiar = "xiar_hermes.plugin"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["xiar_hermes"]

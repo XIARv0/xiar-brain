@@ -1,0 +1,22 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md
+[package]
+name = "xiar-engine-http"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true
+
+# Plain-HTTP client with TLS compiled out: this engine can only ever talk to a server on the same machine.
+[dependencies]
+xiar-llm = { path = "../xiar-llm" }
+serde_json = "1"
+ureq = { version = "3", default-features = false }
+xiar-screen = { path = "../xiar-screen" }
+xiar-voice = { path = "../xiar-voice" }
+base64 = "0.22"
+png = "0.17"

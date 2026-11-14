@@ -1,0 +1,24 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md
+[package]
+name = "xiar-memory"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+uuid = { version = "1", features = ["v4", "v7"] }
+chrono = { version = "0.4", default-features = false, features = ["std", "clock"] }
+base64 = "0.22"
+xiar-store = { path = "../xiar-store" }
+
+[dev-dependencies]
+tempfile = "3"

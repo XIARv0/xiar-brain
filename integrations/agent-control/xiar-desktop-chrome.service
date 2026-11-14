@@ -1,0 +1,27 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md
+[Unit]
+Description=XIAR root-defined trusted compositor chrome
+After=xiar-agent-control.service
+
+[Service]
+Type=exec
+User=@USER@
+Group=@GROUP@
+ExecStart=/usr/bin/python3 -I -B /opt/xiar/drive/chrome-launch.py
+Environment=PYTHONDONTWRITEBYTECODE=1
+CacheDirectory=xiar-desktop-chrome
+CacheDirectoryMode=0700
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/run/user/@UID@
+PrivateTmp=yes
+RestrictAddressFamilies=AF_UNIX
+KillMode=control-group
+TimeoutStopSec=3
+Restart=on-failure
+RestartSec=3
+UMask=0077
+# Not enabled at boot: the Hyprland launcher requests this fixed service once Wayland exists.

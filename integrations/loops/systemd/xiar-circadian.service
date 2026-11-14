@@ -1,0 +1,15 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md
+[Unit]
+Description=XIAR circadian loop (one run)
+
+[Service]
+Type=oneshot
+Environment=XIAR_LOOPS_CONFIG=@REPO@/config/loops.toml
+ExecStart=/usr/bin/python3 -I -B @REPO@/integrations/loops/xiar_loops.py circadian
+Nice=15
+CPUQuota=20%
+MemoryMax=128M
+NoNewPrivileges=yes
+PrivateTmp=yes

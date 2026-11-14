@@ -1,0 +1,36 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md
+# xiar-memory-api (core/rust/crates/xiar-memory-api): tenant-scoped MIRIX Semantic memory for Hermes.
+# Paths relative to $XIAR_ROOT (e.g. ~/xiar-os). Secrets live in 0600 files, never in this file.
+
+[server]
+bind           = "127.0.0.1:8771"
+max_body_bytes = 65536
+
+[store]
+root            = "data/memory-api"            # stores under agents/<agent>/users/<user>/tenants/<business>/ (one index per triple)
+language        = "english"                    # BM25 stemmer
+user            = "owner"
+master_key_file = "~/.config/xiar/memory-api-master.key"
+
+[ontology]
+enabled = true                                 # OntologyExpander on every live search (per-request opt-out)
+ofn     = "core/rust/ontologies-example/example-org_v3_promoted.ofn"   # example only; point at your own promoted ontology
+
+[auth]
+tokens_file = "~/.config/xiar/memory-api-tokens.json"   # {client name: token}; created by `xiar-memory-api init`
+# Private-Agent grants: SHA-256 digests of their capabilities, written only by the root broker (root-owned, world-readable).
+dynamic_grants_file = "data/agents/memory-grants.json"  # production may use /etc/xiar/memory-grants.json
+
+[search]
+default_limit = 8
+max_limit     = 50
+
+# Clients and the businesses each may touch ("*" = any; every call must still name one business).
+[[clients]]
+name       = "xiar-owner"
+agent_id = "xiar"
+end_user_id = "owner"
+read_all_agents = true
+businesses = ["*"]

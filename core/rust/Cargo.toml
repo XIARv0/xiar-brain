@@ -1,0 +1,64 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md
+# XIAR V0 brain system workspace: memory, memory API, ontology builder/expander and their dependencies.
+[workspace]
+resolver = "2"
+members = [
+    "crates/xiar-core",
+    "crates/xiar-llm",
+    "crates/xiar-memory",
+    "crates/xiar-memory-api",
+    "crates/xiar-ontology",
+    "crates/xiar-ontology-dump",
+    "crates/xiar-ontology-recall",
+    "crates/xiar-ontology-verify",
+    "crates/xiar-owl",
+    "crates/xiar-prompts",
+    "crates/xiar-store",
+    "crates/xiar-audit",
+    "crates/xiar-engine-http",
+    "crates/xiar-screen",
+    "crates/xiar-voice",
+    "vendor/xiar-qdrant-edge",
+]
+default-members = [
+    "crates/xiar-core",
+    "crates/xiar-llm",
+    "crates/xiar-memory",
+    "crates/xiar-memory-api",
+    "crates/xiar-ontology",
+    "crates/xiar-owl",
+    "crates/xiar-prompts",
+    "crates/xiar-store",
+]
+
+[workspace.package]
+version = "0.0.1"
+edition = "2021"
+license = "AGPL-3.0-or-later"
+publish = false
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+type_complexity = "allow"
+too_many_arguments = "allow"
+zombie_processes = "allow"
+missing_safety_doc = "allow"
+cloned_ref_to_slice_refs = "allow"
+unnecessary_sort_by = "allow"
+format_in_format_args = "allow"
+unnecessary_to_owned = "allow"
+unnecessary_map_or = "allow"
+needless_update = "allow"
+needless_range_loop = "allow"
+iter_kv_map = "allow"
+for_kv_map = "allow"
+if_same_then_else = "allow"
+collapsible_match = "allow"
+byte_char_slices = "allow"
+
+
+

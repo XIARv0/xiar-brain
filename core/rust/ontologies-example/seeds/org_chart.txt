@@ -1,0 +1,5 @@
+Organisation chart of Example Co.
+Daniel Reyes is the Director of Operations. Ingrid Solheim is a Project Lead and reports to Daniel Reyes.
+Maria Costa is an Engineer and reports to Ingrid Solheim. Tomas Berg is an Engineer and reports to Ingrid Solheim.
+Helena Park is the Director of Finance. Helena Park approves budgets for every project.
+Sensor Supply Co is a Vendor that supplies sensors. Freight Partners is a Vendor that supplies logistics.

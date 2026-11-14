@@ -1,0 +1,1385 @@
+{
+ "engineer": [
+  {
+   "base_classes": [],
+   "base_relations": [],
+   "version": "v1",
+   "candidate_classes": [
+    "customer order",
+    "agents",
+    "TASK",
+    "invoice",
+    "invoices",
+    "work_flow"
+   ],
+   "candidate_relations": [
+    [
+     "Customer Order",
+     "is placed by",
+     "Agent"
+    ],
+    [
+     "Agent",
+     "uses",
+     "Task"
+    ],
+    [
+     "Agent",
+     "owns",
+     "Ghost"
+    ],
+    [
+     "invoice",
+     "billed to",
+     "customer order"
+    ]
+   ],
+   "classes": [
+    "Agents",
+    "CustomerOrder",
+    "Invoice",
+    "Task",
+    "WorkFlow"
+   ],
+   "properties": [
+    [
+     "Invoice",
+     "billedTo",
+     "CustomerOrder"
+    ]
+   ],
+   "new_version": "v2",
+   "classes_added": 5,
+   "relations_added": 1,
+   "conflicts_resolved": 1,
+   "diff_summary": "Ontology Engineering Summary:\n  Classes added: 5\n  Relations added: 1\n  Conflicts resolved: 1\n  New classes: Agents, CustomerOrder, Invoice, Task, WorkFlow"
+  },
+  {
+   "base_classes": [],
+   "base_relations": [],
+   "version": "v9",
+   "candidate_classes": [
+    "Document",
+    "documents",
+    "Reader",
+    "read_er"
+   ],
+   "candidate_relations": [
+    [
+     "Reader",
+     "reads",
+     "Document"
+    ],
+    [
+     "reader",
+     "reads",
+     "document"
+    ]
+   ],
+   "classes": [
+    "Document",
+    "Reader"
+   ],
+   "properties": [
+    [
+     "Reader",
+     "reads",
+     "Document"
+    ]
+   ],
+   "new_version": "v10",
+   "classes_added": 2,
+   "relations_added": 1,
+   "conflicts_resolved": 2,
+   "diff_summary": "Ontology Engineering Summary:\n  Classes added: 2\n  Relations added: 1\n  Conflicts resolved: 2\n  New classes: Document, Reader"
+  },
+  {
+   "base_classes": [],
+   "base_relations": [],
+   "version": "draft",
+   "candidate_classes": [
+    "Workflow",
+    "Work",
+    "Customer",
+    "Client",
+    "personal assistant",
+    "personal agent"
+   ],
+   "candidate_relations": [
+    [
+     "Customer",
+     "buys from",
+     "Client"
+    ],
+    [
+     "Client",
+     "!!",
+     "Customer"
+    ]
+   ],
+   "classes": [
+    "Client",
+    "Customer",
+    "PersonalAgent",
+    "PersonalAssistant",
+    "Workflow"
+   ],
+   "properties": [
+    [
+     "Client",
+     "relatesTo",
+     "Customer"
+    ],
+    [
+     "Customer",
+     "buysFrom",
+     "Client"
+    ]
+   ],
+   "new_version": "v2",
+   "classes_added": 5,
+   "relations_added": 2,
+   "conflicts_resolved": 1,
+   "diff_summary": "Ontology Engineering Summary:\n  Classes added: 5\n  Relations added: 2\n  Conflicts resolved: 1\n  New classes: Client, Customer, PersonalAgent, PersonalAssistant, Workflow"
+  },
+  {
+   "base_classes": [],
+   "base_relations": [],
+   "version": "v",
+   "candidate_classes": [],
+   "candidate_relations": [],
+   "classes": [],
+   "properties": [],
+   "new_version": "v2",
+   "classes_added": 0,
+   "relations_added": 0,
+   "conflicts_resolved": 0,
+   "diff_summary": "Ontology Engineering Summary:\n  Classes added: 0\n  Relations added: 0\n  Conflicts resolved: 0"
+  },
+  {
+   "base_classes": [],
+   "base_relations": [],
+   "version": "v1",
+   "candidate_classes": [
+    "alpha beta",
+    "Alpha-Beta",
+    "Gamma3",
+    "gamma 3",
+    "42",
+    "x"
+   ],
+   "candidate_relations": [
+    [
+     "Alpha Beta",
+     "relates to",
+     "Gamma3"
+    ],
+    [
+     "x",
+     "Is Part Of",
+     "Alpha Beta"
+    ]
+   ],
+   "classes": [
+    "42",
+    "AlphaBeta",
+    "Gamma3",
+    "X"
+   ],
+   "properties": [
+    [
+     "AlphaBeta",
+     "relatesTo",
+     "Gamma3"
+    ],
+    [
+     "X",
+     "isPartOf",
+     "AlphaBeta"
+    ]
+   ],
+   "new_version": "v2",
+   "classes_added": 4,
+   "relations_added": 2,
+   "conflicts_resolved": 2,
+   "diff_summary": "Ontology Engineering Summary:\n  Classes added: 4\n  Relations added: 2\n  Conflicts resolved: 2\n  New classes: 42, AlphaBeta, Gamma3, X"
+  },
+  {
+   "base_classes": [
+    "Agent",
+    "Task"
+   ],
+   "base_relations": [
+    [
+     "Agent",
+     "uses",
+     "Task"
+    ]
+   ],
+   "version": "v9",
+   "candidate_classes": [
+    "customer order",
+    "agents",
+    "TASK",
+    "invoice",
+    "invoices",
+    "work_flow"
+   ],
+   "candidate_relations": [
+    [
+     "Customer Order",
+     "is placed by",
+     "Agent"
+    ],
+    [
+     "Agent",
+     "uses",
+     "Task"
+    ],
+    [
+     "Agent",
+     "owns",
+     "Ghost"
+    ],
+    [
+     "invoice",
+     "billed to",
+     "customer order"
+    ]
+   ],
+   "classes": [
+    "Agent",
+    "CustomerOrder",
+    "Invoice",
+    "Task",
+    "WorkFlow"
+   ],
+   "properties": [
+    [
+     "Agent",
+     "uses",
+     "Task"
+    ],
+    [
+     "CustomerOrder",
+     "isPlacedBy",
+     "Agent"
+    ],
+    [
+     "Invoice",
+     "billedTo",
+     "CustomerOrder"
+    ]
+   ],
+   "new_version": "v10",
+   "classes_added": 3,
+   "relations_added": 2,
+   "conflicts_resolved": 3,
+   "diff_summary": "Ontology Engineering Summary:\n  Classes added: 3\n  Relations added: 2\n  Conflicts resolved: 3\n  New classes: CustomerOrder, Invoice, WorkFlow"
+  },
+  {
+   "base_classes": [
+    "Agent",
+    "Task"
+   ],
+   "base_relations": [
+    [
+     "Agent",
+     "uses",
+     "Task"
+    ]
+   ],
+   "version": "draft",
+   "candidate_classes": [
+    "Document",
+    "documents",
+    "Reader",
+    "read_er"
+   ],
+   "candidate_relations": [
+    [
+     "Reader",
+     "reads",
+     "Document"
+    ],
+    [
+     "reader",
+     "reads",
+     "document"
+    ]
+   ],
+   "classes": [
+    "Agent",
+    "Document",
+    "Reader",
+    "Task"
+   ],
+   "properties": [
+    [
+     "Agent",
+     "uses",
+     "Task"
+    ],
+    [
+     "Reader",
+     "reads",
+     "Document"
+    ]
+   ],
+   "new_version": "v2",
+   "classes_added": 2,
+   "relations_added": 1,
+   "conflicts_resolved": 2,
+   "diff_summary": "Ontology Engineering Summary:\n  Classes added: 2\n  Relations added: 1\n  Conflicts resolved: 2\n  New classes: Document, Reader"
+  },
+  {
+   "base_classes": [
+    "Agent",
+    "Task"
+   ],
+   "base_relations": [
+    [
+     "Agent",
+     "uses",
+     "Task"
+    ]
+   ],
+   "version": "v",
+   "candidate_classes": [
+    "Workflow",
+    "Work",
+    "Customer",
+    "Client",
+    "personal assistant",
+    "personal agent"
+   ],
+   "candidate_relations": [
+    [
+     "Customer",
+     "buys from",
+     "Client"
+    ],
+    [
+     "Client",
+     "!!",
+     "Customer"
+    ]
+   ],
+   "classes": [
+    "Agent",
+    "Client",
+    "Customer",
+    "PersonalAssistant",
+    "Task",
+    "Workflow"
+   ],
+   "properties": [
+    [
+     "Agent",
+     "uses",
+     "Task"
+    ],
+    [
+     "Client",
+     "relatesTo",
+     "Customer"
+    ],
+    [
+     "Customer",
+     "buysFrom",
+     "Client"
+    ]
+   ],
+   "new_version": "v2",
+   "classes_added": 4,
+   "relations_added": 2,
+   "conflicts_resolved": 2,
+   "diff_summary": "Ontology Engineering Summary:\n  Classes added: 4\n  Relations added: 2\n  Conflicts resolved: 2\n  New classes: Client, Customer, PersonalAssistant, Workflow"
+  },
+  {
+   "base_classes": [
+    "Agent",
+    "Task"
+   ],
+   "base_relations": [
+    [
+     "Agent",
+     "uses",
+     "Task"
+    ]
+   ],
+   "version": "v1",
+   "candidate_classes": [],
+   "candidate_relations": [],
+   "classes": [
+    "Agent",
+    "Task"
+   ],
+   "properties": [
+    [
+     "Agent",
+     "uses",
+     "Task"
+    ]
+   ],
+   "new_version": "v2",
+   "classes_added": 0,
+   "relations_added": 0,
+   "conflicts_resolved": 0,
+   "diff_summary": "Ontology Engineering Summary:\n  Classes added: 0\n  Relations added: 0\n  Conflicts resolved: 0"
+  },
+  {
+   "base_classes": [
+    "Agent",
+    "Task"
+   ],
+   "base_relations": [
+    [
+     "Agent",
+     "uses",
+     "Task"
+    ]
+   ],
+   "version": "v9",
+   "candidate_classes": [
+    "alpha beta",
+    "Alpha-Beta",
+    "Gamma3",
+    "gamma 3",
+    "42",
+    "x"
+   ],
+   "candidate_relations": [
+    [
+     "Alpha Beta",
+     "relates to",
+     "Gamma3"
+    ],
+    [
+     "x",
+     "Is Part Of",
+     "Alpha Beta"
+    ]
+   ],
+   "classes": [
+    "42",
+    "Agent",
+    "AlphaBeta",
+    "Gamma3",
+    "Task",
+    "X"
+   ],
+   "properties": [
+    [
+     "Agent",
+     "uses",
+     "Task"
+    ],
+    [
+     "AlphaBeta",
+     "relatesTo",
+     "Gamma3"
+    ],
+    [
+     "X",
+     "isPartOf",
+     "AlphaBeta"
+    ]
+   ],
+   "new_version": "v10",
+   "classes_added": 4,
+   "relations_added": 2,
+   "conflicts_resolved": 2,
+   "diff_summary": "Ontology Engineering Summary:\n  Classes added: 4\n  Relations added: 2\n  Conflicts resolved: 2\n  New classes: 42, AlphaBeta, Gamma3, X"
+  },
+  {
+   "base_classes": [
+    "Agent",
+    "Goal",
+    "Plan",
+    "Task",
+    "Tool"
+   ],
+   "base_relations": [
+    [
+     "Agent",
+     "uses",
+     "Tool"
+    ],
+    [
+     "Agent",
+     "has",
+     "Goal"
+    ],
+    [
+     "Plan",
+     "serves",
+     "Goal"
+    ]
+   ],
+   "version": "draft",
+   "candidate_classes": [
+    "customer order",
+    "agents",
+    "TASK",
+    "invoice",
+    "invoices",
+    "work_flow"
+   ],
+   "candidate_relations": [
+    [
+     "Customer Order",
+     "is placed by",
+     "Agent"
+    ],
+    [
+     "Agent",
+     "uses",
+     "Task"
+    ],
+    [
+     "Agent",
+     "owns",
+     "Ghost"
+    ],
+    [
+     "invoice",
+     "billed to",
+     "customer order"
+    ]
+   ],
+   "classes": [
+    "Agent",
+    "CustomerOrder",
+    "Goal",
+    "Invoice",
+    "Plan",
+    "Task",
+    "Tool",
+    "WorkFlow"
+   ],
+   "properties": [
+    [
+     "Agent",
+     "has",
+     "Goal"
+    ],
+    [
+     "Agent",
+     "uses",
+     "Task"
+    ],
+    [
+     "CustomerOrder",
+     "isPlacedBy",
+     "Agent"
+    ],
+    [
+     "Invoice",
+     "billedTo",
+     "CustomerOrder"
+    ],
+    [
+     "Plan",
+     "serves",
+     "Goal"
+    ]
+   ],
+   "new_version": "v2",
+   "classes_added": 3,
+   "relations_added": 3,
+   "conflicts_resolved": 3,
+   "diff_summary": "Ontology Engineering Summary:\n  Classes added: 3\n  Relations added: 3\n  Conflicts resolved: 3\n  New classes: CustomerOrder, Invoice, WorkFlow"
+  },
+  {
+   "base_classes": [
+    "Agent",
+    "Goal",
+    "Plan",
+    "Task",
+    "Tool"
+   ],
+   "base_relations": [
+    [
+     "Agent",
+     "uses",
+     "Tool"
+    ],
+    [
+     "Agent",
+     "has",
+     "Goal"
+    ],
+    [
+     "Plan",
+     "serves",
+     "Goal"
+    ]
+   ],
+   "version": "v",
+   "candidate_classes": [
+    "Document",
+    "documents",
+    "Reader",
+    "read_er"
+   ],
+   "candidate_relations": [
+    [
+     "Reader",
+     "reads",
+     "Document"
+    ],
+    [
+     "reader",
+     "reads",
+     "document"
+    ]
+   ],
+   "classes": [
+    "Agent",
+    "Document",
+    "Goal",
+    "Plan",
+    "Reader",
+    "Task",
+    "Tool"
+   ],
+   "properties": [
+    [
+     "Agent",
+     "has",
+     "Goal"
+    ],
+    [
+     "Agent",
+     "uses",
+     "Tool"
+    ],
+    [
+     "Plan",
+     "serves",
+     "Goal"
+    ],
+    [
+     "Reader",
+     "reads",
+     "Document"
+    ]
+   ],
+   "new_version": "v2",
+   "classes_added": 2,
+   "relations_added": 1,
+   "conflicts_resolved": 2,
+   "diff_summary": "Ontology Engineering Summary:\n  Classes added: 2\n  Relations added: 1\n  Conflicts resolved: 2\n  New classes: Document, Reader"
+  },
+  {
+   "base_classes": [
+    "Agent",
+    "Goal",
+    "Plan",
+    "Task",
+    "Tool"
+   ],
+   "base_relations": [
+    [
+     "Agent",
+     "uses",
+     "Tool"
+    ],
+    [
+     "Agent",
+     "has",
+     "Goal"
+    ],
+    [
+     "Plan",
+     "serves",
+     "Goal"
+    ]
+   ],
+   "version": "v1",
+   "candidate_classes": [
+    "Workflow",
+    "Work",
+    "Customer",
+    "Client",
+    "personal assistant",
+    "personal agent"
+   ],
+   "candidate_relations": [
+    [
+     "Customer",
+     "buys from",
+     "Client"
+    ],
+    [
+     "Client",
+     "!!",
+     "Customer"
+    ]
+   ],
+   "classes": [
+    "Agent",
+    "Client",
+    "Customer",
+    "Goal",
+    "PersonalAssistant",
+    "Plan",
+    "Task",
+    "Tool",
+    "Workflow"
+   ],
+   "properties": [
+    [
+     "Agent",
+     "has",
+     "Goal"
+    ],
+    [
+     "Agent",
+     "uses",
+     "Tool"
+    ],
+    [
+     "Client",
+     "relatesTo",
+     "Customer"
+    ],
+    [
+     "Customer",
+     "buysFrom",
+     "Client"
+    ],
+    [
+     "Plan",
+     "serves",
+     "Goal"
+    ]
+   ],
+   "new_version": "v2",
+   "classes_added": 4,
+   "relations_added": 2,
+   "conflicts_resolved": 2,
+   "diff_summary": "Ontology Engineering Summary:\n  Classes added: 4\n  Relations added: 2\n  Conflicts resolved: 2\n  New classes: Client, Customer, PersonalAssistant, Workflow"
+  },
+  {
+   "base_classes": [
+    "Agent",
+    "Goal",
+    "Plan",
+    "Task",
+    "Tool"
+   ],
+   "base_relations": [
+    [
+     "Agent",
+     "uses",
+     "Tool"
+    ],
+    [
+     "Agent",
+     "has",
+     "Goal"
+    ],
+    [
+     "Plan",
+     "serves",
+     "Goal"
+    ]
+   ],
+   "version": "v9",
+   "candidate_classes": [],
+   "candidate_relations": [],
+   "classes": [
+    "Agent",
+    "Goal",
+    "Plan",
+    "Task",
+    "Tool"
+   ],
+   "properties": [
+    [
+     "Agent",
+     "has",
+     "Goal"
+    ],
+    [
+     "Agent",
+     "uses",
+     "Tool"
+    ],
+    [
+     "Plan",
+     "serves",
+     "Goal"
+    ]
+   ],
+   "new_version": "v10",
+   "classes_added": 0,
+   "relations_added": 0,
+   "conflicts_resolved": 0,
+   "diff_summary": "Ontology Engineering Summary:\n  Classes added: 0\n  Relations added: 0\n  Conflicts resolved: 0"
+  },
+  {
+   "base_classes": [
+    "Agent",
+    "Goal",
+    "Plan",
+    "Task",
+    "Tool"
+   ],
+   "base_relations": [
+    [
+     "Agent",
+     "uses",
+     "Tool"
+    ],
+    [
+     "Agent",
+     "has",
+     "Goal"
+    ],
+    [
+     "Plan",
+     "serves",
+     "Goal"
+    ]
+   ],
+   "version": "draft",
+   "candidate_classes": [
+    "alpha beta",
+    "Alpha-Beta",
+    "Gamma3",
+    "gamma 3",
+    "42",
+    "x"
+   ],
+   "candidate_relations": [
+    [
+     "Alpha Beta",
+     "relates to",
+     "Gamma3"
+    ],
+    [
+     "x",
+     "Is Part Of",
+     "Alpha Beta"
+    ]
+   ],
+   "classes": [
+    "42",
+    "Agent",
+    "AlphaBeta",
+    "Gamma3",
+    "Goal",
+    "Plan",
+    "Task",
+    "Tool",
+    "X"
+   ],
+   "properties": [
+    [
+     "Agent",
+     "has",
+     "Goal"
+    ],
+    [
+     "Agent",
+     "uses",
+     "Tool"
+    ],
+    [
+     "AlphaBeta",
+     "relatesTo",
+     "Gamma3"
+    ],
+    [
+     "Plan",
+     "serves",
+     "Goal"
+    ],
+    [
+     "X",
+     "isPartOf",
+     "AlphaBeta"
+    ]
+   ],
+   "new_version": "v2",
+   "classes_added": 4,
+   "relations_added": 2,
+   "conflicts_resolved": 2,
+   "diff_summary": "Ontology Engineering Summary:\n  Classes added: 4\n  Relations added: 2\n  Conflicts resolved: 2\n  New classes: 42, AlphaBeta, Gamma3, X"
+  }
+ ],
+ "critic": [
+  {
+   "classes": [
+    "Agents",
+    "CustomerOrder",
+    "Invoice",
+    "Task",
+    "WorkFlow"
+   ],
+   "properties": [
+    [
+     "Invoice",
+     "billedTo",
+     "CustomerOrder"
+    ]
+   ],
+   "is_valid": true,
+   "quality_score": 1.0,
+   "errors": [],
+   "warnings": [],
+   "class_count": 5,
+   "relation_count": 1
+  },
+  {
+   "classes": [
+    "Document",
+    "Reader"
+   ],
+   "properties": [
+    [
+     "Reader",
+     "reads",
+     "Document"
+    ]
+   ],
+   "is_valid": true,
+   "quality_score": 1.0,
+   "errors": [],
+   "warnings": [],
+   "class_count": 2,
+   "relation_count": 1
+  },
+  {
+   "classes": [
+    "Client",
+    "Customer",
+    "PersonalAgent",
+    "PersonalAssistant",
+    "Workflow"
+   ],
+   "properties": [
+    [
+     "Client",
+     "relatesTo",
+     "Customer"
+    ],
+    [
+     "Customer",
+     "buysFrom",
+     "Client"
+    ]
+   ],
+   "is_valid": true,
+   "quality_score": 1.0,
+   "errors": [],
+   "warnings": [
+    "Circular dependency detected involving class 'Customer'"
+   ],
+   "class_count": 5,
+   "relation_count": 2
+  },
+  {
+   "classes": [],
+   "properties": [],
+   "is_valid": false,
+   "quality_score": 0.8,
+   "errors": [
+    "Ontology must contain at least one class"
+   ],
+   "warnings": [],
+   "class_count": 0,
+   "relation_count": 0
+  },
+  {
+   "classes": [
+    "42",
+    "AlphaBeta",
+    "Gamma3",
+    "X"
+   ],
+   "properties": [
+    [
+     "AlphaBeta",
+     "relatesTo",
+     "Gamma3"
+    ],
+    [
+     "X",
+     "isPartOf",
+     "AlphaBeta"
+    ]
+   ],
+   "is_valid": false,
+   "quality_score": 0.8,
+   "errors": [
+    "Class '42' does not follow CamelCase naming convention"
+   ],
+   "warnings": [],
+   "class_count": 4,
+   "relation_count": 2
+  },
+  {
+   "classes": [
+    "Agent",
+    "CustomerOrder",
+    "Invoice",
+    "Task",
+    "WorkFlow"
+   ],
+   "properties": [
+    [
+     "Agent",
+     "uses",
+     "Task"
+    ],
+    [
+     "CustomerOrder",
+     "isPlacedBy",
+     "Agent"
+    ],
+    [
+     "Invoice",
+     "billedTo",
+     "CustomerOrder"
+    ]
+   ],
+   "is_valid": true,
+   "quality_score": 1.0,
+   "errors": [],
+   "warnings": [],
+   "class_count": 5,
+   "relation_count": 3
+  },
+  {
+   "classes": [
+    "Agent",
+    "Document",
+    "Reader",
+    "Task"
+   ],
+   "properties": [
+    [
+     "Agent",
+     "uses",
+     "Task"
+    ],
+    [
+     "Reader",
+     "reads",
+     "Document"
+    ]
+   ],
+   "is_valid": true,
+   "quality_score": 1.0,
+   "errors": [],
+   "warnings": [],
+   "class_count": 4,
+   "relation_count": 2
+  },
+  {
+   "classes": [
+    "Agent",
+    "Client",
+    "Customer",
+    "PersonalAssistant",
+    "Task",
+    "Workflow"
+   ],
+   "properties": [
+    [
+     "Agent",
+     "uses",
+     "Task"
+    ],
+    [
+     "Client",
+     "relatesTo",
+     "Customer"
+    ],
+    [
+     "Customer",
+     "buysFrom",
+     "Client"
+    ]
+   ],
+   "is_valid": true,
+   "quality_score": 1.0,
+   "errors": [],
+   "warnings": [
+    "Circular dependency detected involving class 'Customer'"
+   ],
+   "class_count": 6,
+   "relation_count": 3
+  },
+  {
+   "classes": [
+    "Agent",
+    "Task"
+   ],
+   "properties": [
+    [
+     "Agent",
+     "uses",
+     "Task"
+    ]
+   ],
+   "is_valid": true,
+   "quality_score": 1.0,
+   "errors": [],
+   "warnings": [],
+   "class_count": 2,
+   "relation_count": 1
+  },
+  {
+   "classes": [
+    "42",
+    "Agent",
+    "AlphaBeta",
+    "Gamma3",
+    "Task",
+    "X"
+   ],
+   "properties": [
+    [
+     "Agent",
+     "uses",
+     "Task"
+    ],
+    [
+     "AlphaBeta",
+     "relatesTo",
+     "Gamma3"
+    ],
+    [
+     "X",
+     "isPartOf",
+     "AlphaBeta"
+    ]
+   ],
+   "is_valid": false,
+   "quality_score": 1.0,
+   "errors": [
+    "Class '42' does not follow CamelCase naming convention"
+   ],
+   "warnings": [],
+   "class_count": 6,
+   "relation_count": 3
+  },
+  {
+   "classes": [
+    "Agent",
+    "CustomerOrder",
+    "Goal",
+    "Invoice",
+    "Plan",
+    "Task",
+    "Tool",
+    "WorkFlow"
+   ],
+   "properties": [
+    [
+     "Agent",
+     "has",
+     "Goal"
+    ],
+    [
+     "Agent",
+     "uses",
+     "Task"
+    ],
+    [
+     "CustomerOrder",
+     "isPlacedBy",
+     "Agent"
+    ],
+    [
+     "Invoice",
+     "billedTo",
+     "CustomerOrder"
+    ],
+    [
+     "Plan",
+     "serves",
+     "Goal"
+    ]
+   ],
+   "is_valid": true,
+   "quality_score": 1.0,
+   "errors": [],
+   "warnings": [],
+   "class_count": 8,
+   "relation_count": 5
+  },
+  {
+   "classes": [
+    "Agent",
+    "Document",
+    "Goal",
+    "Plan",
+    "Reader",
+    "Task",
+    "Tool"
+   ],
+   "properties": [
+    [
+     "Agent",
+     "has",
+     "Goal"
+    ],
+    [
+     "Agent",
+     "uses",
+     "Tool"
+    ],
+    [
+     "Plan",
+     "serves",
+     "Goal"
+    ],
+    [
+     "Reader",
+     "reads",
+     "Document"
+    ]
+   ],
+   "is_valid": true,
+   "quality_score": 1.0,
+   "errors": [],
+   "warnings": [],
+   "class_count": 7,
+   "relation_count": 4
+  },
+  {
+   "classes": [
+    "Agent",
+    "Client",
+    "Customer",
+    "Goal",
+    "PersonalAssistant",
+    "Plan",
+    "Task",
+    "Tool",
+    "Workflow"
+   ],
+   "properties": [
+    [
+     "Agent",
+     "has",
+     "Goal"
+    ],
+    [
+     "Agent",
+     "uses",
+     "Tool"
+    ],
+    [
+     "Client",
+     "relatesTo",
+     "Customer"
+    ],
+    [
+     "Customer",
+     "buysFrom",
+     "Client"
+    ],
+    [
+     "Plan",
+     "serves",
+     "Goal"
+    ]
+   ],
+   "is_valid": true,
+   "quality_score": 1.0,
+   "errors": [],
+   "warnings": [
+    "Circular dependency detected involving class 'Customer'"
+   ],
+   "class_count": 9,
+   "relation_count": 5
+  },
+  {
+   "classes": [
+    "Agent",
+    "Goal",
+    "Plan",
+    "Task",
+    "Tool"
+   ],
+   "properties": [
+    [
+     "Agent",
+     "has",
+     "Goal"
+    ],
+    [
+     "Agent",
+     "uses",
+     "Tool"
+    ],
+    [
+     "Plan",
+     "serves",
+     "Goal"
+    ]
+   ],
+   "is_valid": true,
+   "quality_score": 1.0,
+   "errors": [],
+   "warnings": [],
+   "class_count": 5,
+   "relation_count": 3
+  },
+  {
+   "classes": [
+    "42",
+    "Agent",
+    "AlphaBeta",
+    "Gamma3",
+    "Goal",
+    "Plan",
+    "Task",
+    "Tool",
+    "X"
+   ],
+   "properties": [
+    [
+     "Agent",
+     "has",
+     "Goal"
+    ],
+    [
+     "Agent",
+     "uses",
+     "Tool"
+    ],
+    [
+     "AlphaBeta",
+     "relatesTo",
+     "Gamma3"
+    ],
+    [
+     "Plan",
+     "serves",
+     "Goal"
+    ],
+    [
+     "X",
+     "isPartOf",
+     "AlphaBeta"
+    ]
+   ],
+   "is_valid": false,
+   "quality_score": 1.0,
+   "errors": [
+    "Class '42' does not follow CamelCase naming convention"
+   ],
+   "warnings": [],
+   "class_count": 9,
+   "relation_count": 5
+  }
+ ]
+}

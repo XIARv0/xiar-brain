@@ -1,0 +1,14 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Neural brain runtime dependencies (unpinned; derived from imports on 2026-11-14).
+# Install a torch build that matches your GPU or CPU.
+torch
+tokenizers
+huggingface_hub
+fastapi
+pydantic
+uvicorn
+cryptography
+# tests / benchmarks only
+pytest
+tiktoken

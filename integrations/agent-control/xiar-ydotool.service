@@ -1,0 +1,33 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md
+[Unit]
+BindsTo=xiar-agent-control.service
+After=xiar-agent-control.service
+Description=XIAR private desktop input device (approved Drive sessions only)
+
+[Service]
+Type=exec
+User=root
+Group=root
+RuntimeDirectory=xiar-drive
+RuntimeDirectoryMode=0755
+RuntimeDirectoryPreserve=yes
+UMask=0077
+ExecStartPre=/usr/bin/test -c /dev/uinput
+ExecStart=/usr/bin/ydotoold --socket-path=/run/xiar-drive/ydotool.sock --socket-own=0:0 --socket-perm=0600
+KillMode=control-group
+KillSignal=SIGKILL
+TimeoutStopSec=0
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+DevicePolicy=closed
+DeviceAllow=/dev/uinput rw
+RestrictAddressFamilies=AF_UNIX
+ReadWritePaths=/run/xiar-drive
+CapabilityBoundingSet=
+RestrictSUIDSGID=yes
+LockPersonality=yes
+# Deliberately no Install section: never auto-start/enable a desktop input daemon.

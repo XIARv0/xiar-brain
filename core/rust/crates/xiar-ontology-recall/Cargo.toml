@@ -1,0 +1,25 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md
+[package]
+name = "xiar-ontology-recall"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true
+
+[[bin]]
+name = "xiar-ontology-recall"
+path = "src/main.rs"
+
+[dependencies]
+xiar-memory = { path = "../xiar-memory" }
+xiar-ontology = { path = "../xiar-ontology" }
+xiar-owl = { path = "../xiar-owl" }
+xiar-prompts = { path = "../xiar-prompts" }
+xiar-store = { path = "../xiar-store" }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"

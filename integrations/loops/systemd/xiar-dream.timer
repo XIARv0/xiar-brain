@@ -1,0 +1,13 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md
+[Unit]
+Description=XIAR dream loop timer (once a day at low load)
+
+[Timer]
+OnCalendar=*-*-* 04:30:00
+Persistent=true
+RandomizedDelaySec=15min
+
+[Install]
+WantedBy=timers.target

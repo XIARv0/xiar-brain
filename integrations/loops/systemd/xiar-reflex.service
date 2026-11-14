@@ -1,0 +1,23 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md
+# systemd --user unit. Outside Hermes; system python3, stdlib only. @REPO@ = the project checkout (for example ~/xiar-os).
+[Unit]
+Description=XIAR Reflex loop (config/loops.toml): fast, no LLM, state-change only
+# (no After=default.target: the unit is WantedBy=default.target, so that ordering was a startup loop)
+StartLimitIntervalSec=600
+StartLimitBurst=5
+
+[Service]
+Environment=XIAR_LOOPS_CONFIG=@REPO@/config/loops.toml
+ExecStart=/usr/bin/python3 -I -B @REPO@/integrations/loops/xiar_loops.py reflex
+Restart=always
+RestartSec=15
+Nice=15
+CPUQuota=10%
+MemoryMax=64M
+NoNewPrivileges=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=default.target

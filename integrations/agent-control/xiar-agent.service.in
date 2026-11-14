@@ -1,0 +1,57 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md
+[Unit]
+Description=XIAR private scope @PROFILE@ (Agent @AGENT@)
+After=network.target
+StartLimitIntervalSec=300
+StartLimitBurst=4
+[Service]
+User=@USER@
+Group=@USER@
+WorkingDirectory=/var/lib/xiar-agent
+Environment=HOME=/var/lib/xiar-agent
+Environment=HERMES_HOME=/var/lib/xiar-agent
+Environment=XIAR_ROOT=/opt/xiar/project
+Environment=XIAR_RUNTIME_MANIFEST=/run/xiar-agent/manifest.json
+Environment=XIAR_NATIVE_SOURCE=/opt/xiar/hermes
+Environment=PYTHONPATH=/opt/xiar/hermes:/opt/xiar/project/integrations/hermes-xiar:/opt/xiar/project/integrations/hermes-xiar/distribution
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=LD_PRELOAD=@SQLITE@
+Environment=GATEWAY_MULTIPLEX_PROFILES=false
+EnvironmentFile=@ENV@
+LoadCredential=laya-token:/etc/xiar/credentials/laya-token
+@BRAIN@
+TemporaryFileSystem=/run:ro
+TemporaryFileSystem=/opt/xiar/project:ro
+BindReadOnlyPaths=@PROJECT@/integrations/hermes-xiar:/opt/xiar/project/integrations/hermes-xiar
+BindReadOnlyPaths=@PROJECT@/Brain/Shared/mental-models:/opt/xiar/project/Brain/Shared/mental-models
+BindReadOnlyPaths=@PROJECT@/config:/opt/xiar/project/config
+BindReadOnlyPaths=-@PROJECT@/Brain/Shared/workspace/godseye:/opt/xiar/project/Brain/Shared/workspace/godseye
+@GODSEYE_HISTORY@
+BindReadOnlyPaths=@NATIVE@:/opt/xiar/hermes
+BindReadOnlyPaths=@MANIFEST@:/run/xiar-agent/manifest.json
+BindPaths=@DATA@:/var/lib/xiar-agent
+ExecStart=/opt/xiar/hermes/venv/bin/python -m xiar_hermes.native_profiles
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivatePIDs=yes
+Environment=XDG_RUNTIME_DIR=/var/lib/xiar-agent/run
+InaccessiblePaths=-/opt/xiar/hermes/.env /mnt /media /srv
+PrivateDevices=yes
+NoNewPrivileges=yes
+ProtectKernelTunables=yes
+AppArmorProfile=xiar-agent
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+CapabilityBoundingSet=
+UMask=0077
+Restart=on-failure
+SuccessExitStatus=75
+RestartPreventExitStatus=75
+RestartSec=5
+TimeoutStopSec=90
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,117 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md
+# XIAR NeuralBrain configuration (NeuralBrain.md). Every size, path, schedule and threshold is here.
+# Relative paths resolve against the repo root ($XIAR_ROOT overrides). Env override:
+#   XIAR_BRAIN__<section>__<key>=<toml literal>   e.g. XIAR_BRAIN__train__device="cpu"
+
+[paths]
+data_dir          = "data/neural-brain"
+checkpoints_dir   = "data/neural-brain/checkpoints"
+sealed_dir        = "data/neural-brain/sealed"                 # contains .xiar-sealed marker; never indexed
+sealed_db         = "data/neural-brain/sealed/lessons.sqlite"
+sealed_public_key = "data/neural-brain/sealed/writer.pub"      # writers (service) hold only this
+sealed_private_key = "data/neural-brain/trainer/trainer-secret.key"  # ONLY the training job loads this
+tokens_file       = "data/neural-brain/secrets/api-tokens.json"
+state_file        = "data/neural-brain/trainer/state.json"
+lock_file         = "data/neural-brain/trainer/train.lock"
+eval_reports_dir  = "data/neural-brain/eval"
+logs_dir          = "data/neural-brain/logs"
+
+[tokenizer]
+# Chosen after the comparison in NeuralBrain.md section 9 (owner t44u/t45u). Only tokenizer.json
+# is used - no model weights. Switch by changing name/path (the brain must then be re-born).
+name    = "mistral-v0.1"
+path    = "core/neural-brain/tokenizers/mistral-v0.1/tokenizer.json"
+hf_repo = "mistralai/Mistral-7B-v0.1"          # used only by `xiar-brain fetch-tokenizer`
+license = "Apache-2.0"
+# XIAR-specific special tokens appended after the base vocab.
+specials = ["<pad>", "<bos>", "<eos>", "<ctx>", "<act>", "<out>", "<why>",
+            "<ok>", "<fail>", "<rejected>", "<approved>", "<prefer>", "<corrected>"]
+
+[model]
+d_model   = 256
+n_layers  = 4
+n_heads   = 4
+ffn_mult  = 4
+max_len   = 160
+dropout   = 0.0
+memory_layers = [1, 3]        # layer indices whose FFN is replaced by a product-key memory layer
+tie_embeddings = true
+seed      = 0                 # random init seed (newborn); no pretrained weights are ever loaded
+
+[memory]
+n_keys     = 128              # sub-keys per half; slots = n_keys^2
+heads      = 4
+k_dim      = 128
+topk       = 32
+gated      = true             # SwiGLU-style gate on memory output (Meta memory layers)
+grow_threshold = 0.80         # slot utilisation that triggers growth
+grow_step  = 32               # sub-keys added per growth (slots grow quadratically)
+max_n_keys = 512
+grow_key_scale = 0.5          # init scale of new sub-keys (keeps old routing stable)
+value_init_std = 0.02
+
+[smf]
+enabled   = true              # sparse memory finetuning (arXiv 2510.15103)
+top_t     = 4000              # memory slots updated per step (TF-IDF ranked). 4000 chosen by eval sweep 2026-11-05 (NeuralBrain.md 11)
+bootstrap_lessons = 200       # newborn: train all params until this many lessons were seen
+train_non_memory_after_bootstrap = false
+background_decay = 1.0        # 1.0 = keep full background document-frequency history
+
+[train]
+device        = "cuda"
+allow_cpu_fallback = true
+lr            = 1e-3
+memory_lr     = 1e-2
+weight_decay  = 0.0
+batch_size    = 32
+replay_ratio  = 0.5           # share of each batch drawn from older lessons
+epochs_per_window = 300         # bounded by max_window_minutes; 300 chosen by eval sweep 2026-11-05
+min_new_lessons = 1
+label_loss_weight = 4.0       # extra weight on outcome-label token
+why_loss_weight   = 2.0
+max_window_minutes = 20
+idle_min_free_vram_gb = 2.0   # Hermes/LLM always has priority
+idle_max_gpu_util = 35        # percent; above this the window is skipped
+check_interval_minutes = 30   # how often the scheduler asks "is now an idle window?"
+grad_clip = 1.0
+
+[eval]
+promote_min_recall = 0.80     # outcome-label recall on trained lessons
+max_forgetting     = 0.10     # max allowed recall drop on older lessons vs previous checkpoint
+promote_first_always = true   # day 0: promote the first checkpoint even below the gate
+
+[signals]
+min_confidence = 0.60
+max_signals    = 5
+gen_max_tokens = 32
+familiar_nll   = 2.5          # mean per-token NLL of the action under the brain; below = familiar
+familiar_scale = 0.5
+tool_gate      = "approve"    # pre_tool_call directive on a strong "failed before"/"rejected": approve|block|off
+tool_gate_confidence = 0.80
+
+[service]
+host = "127.0.0.1"
+port = 8770
+reload_poll_seconds = 10
+max_body_bytes = 16384
+
+[lessons]
+kinds = ["correction", "approval", "rejection", "preference", "outcome", "mistake"]
+outcomes = ["ok", "fail", "rejected", "approved", "prefer", "corrected"]
+max_field_chars = 600
+# Lessons are behaviour, never secrets/money/business facts. Any match => lesson refused.
+deny_patterns = [
+  '(?i)\b(password|passwd|api[_-]?key|secret|token|bearer)\s*[:=]',
+  '\b(sk|pk|rk)-[A-Za-z0-9_-]{16,}',
+  '\bgh[pousr]_[A-Za-z0-9]{20,}',
+  '\bAKIA[0-9A-Z]{16}\b',
+  '\b[A-Za-z0-9+/]{40,}={0,2}',
+  '[\w.+-]+@[\w-]+\.[\w.]+',
+  '\b(?:\d[ -]?){13,19}\b',
+  '[$â‚¬Â£Â¥]\s?\d',
+  '\b\d[\d,.]*\s?(usd|eur|gbp|dollars?|euros?)\b',
+  '(?i)\bbusiness[:_]\s?[a-z0-9_-]+',
+  '\b[A-Z]{2}\d{2}[A-Z0-9]{11,30}\b',
+]

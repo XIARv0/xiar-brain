@@ -1,0 +1,13 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md
+name: xiar
+version: 0.1.0
+description: "XIAR adapter: NeuralBrain signals and lesson capture, MIRIX tenant-scoped memory search with ontology expansion, 99 mental models."
+author: "XIAR"
+provides_hooks:
+  - pre_llm_call
+  - pre_tool_call
+  - post_tool_call
+  - post_approval_response
+  - on_session_end

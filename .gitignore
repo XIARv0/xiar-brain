@@ -1,0 +1,33 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md
+# Build output
+**/target/
+**/__pycache__/
+**/.pytest_cache/
+**/.venv/
+**/venv/
+*.pyc
+# Runtime data, memories and models (never commit)
+data/
+*.redb
+*.redb-*
+*.sqlite
+*.gguf
+*.safetensors
+*.onnx
+*.onnx.data
+*.pt
+*.ckpt
+# Secrets (examples live in config/secrets.example/*.example)
+.env
+.env.*
+**/secrets/
+*.key
+*.pem
+*-ed25519*
+api-tokens.json
+memory-api-tokens.json
+memory-grants.json
+brain-tokens.json
+!config/secrets.example/**

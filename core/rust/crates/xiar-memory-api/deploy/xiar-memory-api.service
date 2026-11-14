@@ -1,0 +1,19 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md
+# systemd --user unit. Install: see HermesIntegration.md
+[Unit]
+Description=XIAR tenant-scoped MIRIX memory API (localhost)
+After=network.target
+
+[Service]
+Environment=XIAR_ROOT=%h/xiar-os
+WorkingDirectory=%h/xiar-os
+ExecStart=%h/xiar-os/core/rust/target/release/xiar-memory-api --config config/memory_api.toml serve
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=default.target

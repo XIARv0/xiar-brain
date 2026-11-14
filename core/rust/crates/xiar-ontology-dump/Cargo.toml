@@ -1,0 +1,14 @@
+﻿# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md
+[package]
+name = "xiar-ontology-dump"
+version = "0.0.1"
+edition = "2021"
+publish = false
+[[bin]]
+name = "xiar-ontology-dump"
+path = "src/main.rs"
+[dependencies]
+redb = "3"
+serde_json = "1"

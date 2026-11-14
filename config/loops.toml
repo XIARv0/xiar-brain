@@ -1,0 +1,44 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Additional term (AGPLv3 s.7(b)): see LICENSE-ADDITIONAL-TERMS.md
+# xiar-loops (integrations/loops): Reflex / Circadian / Dream (OSLayer.md "The three loops"). Runs as systemd user services/timers, outside Hermes,
+# system python3, stdlib only. No LLM is called by this file: a trigger is LOGGED and, only if [wake] mode allows it, handed on once.
+
+[paths]
+state_dir    = "~/.local/state/xiar/loops"
+events_log   = "~/.local/state/xiar/loops/events.jsonl"      # one JSON line per trigger / panic / dream; never key contents, window titles or pixels
+status_file  = "~/.local/state/xiar/loops/status.json"
+identity_block = "~/.local/state/xiar/loops/identity-block.txt"   # "running on ... RAM ... last dream ..." for the Core identity block
+autonomy_state = "/etc/xiar/autonomy-state.json"              # root-written emergency stop state; unreadable/unsafe = stopped
+
+[reflex]
+interval_s        = 15      # base cadence (5-60 s)
+interval_min_s    = 5
+interval_max_s    = 60
+backoff_factor    = 1.5     # boredom backoff: every empty check stretches the interval by this much, up to interval_max_s
+cpu_load_ratio    = 0.85    # 1-minute load average / CPU count
+mem_used_ratio    = 0.90
+disk_used_ratio   = 0.92
+disk_delta_mb     = 2048    # growth between two samples that counts as a trigger
+temp_c            = 85.0
+focus_switches    = 8       # frustration heuristic: this many active-window class changes ...
+focus_window_s    = 30      # ... inside this many seconds
+state_change_min  = 1       # a sample only matters if at least this many conditions CHANGED since the last one
+
+[wake]
+# "log"  : record the trigger and nothing else (default; no model is woken)
+# "xiar" : also write wake-request.json for the XIAR light path to pick up (still subject to every cap below and to the emergency stop)
+mode              = "log"
+cooldown_s        = 300
+max_wakes_per_hour = 6      # deterministic kill switch: beyond this, "cognitive panic" is logged and wakes stay off until the hour rolls over
+max_wake_seconds  = 120     # wall-time cap handed to the woken path
+
+[circadian]
+# systemd timer fires every 2 h; a run with no change since the last digest exits at once (state-change activation) and the next
+# runs are skipped with boredom backoff: skip 1, 2, 4 ... up to max_skip empty runs.
+max_skip = 8
+
+[dream]
+# once per 24 h, low load: prune and de-duplicate the event log, keep summaries. Self-patching is Phase 8.12 and is NOT part of this loop.
+keep_days = 14
+max_log_mb = 20

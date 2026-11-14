@@ -1,0 +1,15 @@
+def retry(fn, attempts: int = 3, backoff: float = 0.5):
+    for i in range(attempts):
+        try:
+            return fn()
+        except TimeoutError as e:
+            time.sleep(backoff * (2 ** i))
+    raise RuntimeError(f"failed after {attempts} attempts")
+
+pub fn business_scope(slug: &str) -> Result<String, String> {
+    let s = slug.trim().to_lowercase();
+    if s.is_empty() { return Err("business slug is empty".into()); }
+    Ok(format!("business:{s}"))
+}
+const res = await fetch(`${base}/v1/signals`, { method: "POST", body: JSON.stringify({ action, context }) });
+sudo systemctl --user restart xiar-desktop-http && journalctl --user -u xiar-desktop-http -n 50

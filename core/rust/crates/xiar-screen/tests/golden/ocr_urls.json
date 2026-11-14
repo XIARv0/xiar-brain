@@ -1,0 +1,221 @@
+{
+ "cases": [
+  {
+   "text": "Visit https://example.com/docs?x=1 for details",
+   "urls": [
+    "https://example.com/docs?x=1"
+   ]
+  },
+  {
+   "text": "google.com and github.com/user/repo and docs.google.com",
+   "urls": [
+    "https://google.com",
+    "https://github.com/user/repo",
+    "https://docs.google.com"
+   ]
+  },
+  {
+   "text": "see e.g. the manual, etc. and i.e. this, vs. that, Dr. Smith of Acme Inc. in Co. Durham",
+   "urls": []
+  },
+  {
+   "text": "mixed: https://a.example.org/path and a.example.org/path again, plus b.example.org",
+   "urls": [
+    "https://a.example.org/path",
+    "https://b.example.org"
+   ]
+  },
+  {
+   "text": "http://UPPER.EXAMPLE.COM/Path HTTPS://Another.Example.com",
+   "urls": [
+    "http://UPPER.EXAMPLE.COM/Path",
+    "HTTPS://Another.Example.com"
+   ]
+  },
+  {
+   "text": "trailing punctuation https://example.com/x), (example.org/y). and example.net/z, ok",
+   "urls": [
+    "https://example.com/x),",
+    "https://example.net/z,"
+   ]
+  },
+  {
+   "text": "no urls here, just words and 3.14 numbers and v1.2.3 versions",
+   "urls": []
+  },
+  {
+   "text": "file.txt report.pdf main.rs index.html",
+   "urls": [
+    "https://file.txt",
+    "https://report.pdf",
+    "https://main.rs",
+    "https://index.html"
+   ]
+  },
+  {
+   "text": "email me at name@example.com or visit mail.example.com",
+   "urls": [
+    "https://example.com",
+    "https://mail.example.com"
+   ]
+  },
+  {
+   "text": "ip 192.168.1.1 and 10.0.0.1:8080/path",
+   "urls": []
+  },
+  {
+   "text": "中文 网站 https://例子.中国/路径 和 www.baidu.com",
+   "urls": [
+    "https://例子.中国/路径",
+    "https://www.baidu.com"
+   ]
+  },
+  {
+   "text": "a.b c.d ab.cd x.io y.ai 1.com",
+   "urls": [
+    "https://ab.cd",
+    "https://x.io",
+    "https://y.ai",
+    "https://1.com"
+   ]
+  },
+  {
+   "text": "git@github.com:user/repo.git and https://github.com/user/repo.git",
+   "urls": [
+    "https://github.com/user/repo.git"
+   ]
+  },
+  {
+   "text": "https://example.com/a<b>c and https://example.com/\"quoted\" and https://example.com/{braces}",
+   "urls": [
+    "https://example.com/a",
+    "https://example.com/"
+   ]
+  },
+  {
+   "text": "Dr.Who is not a site but doctor.who is",
+   "urls": [
+    "https://doctor.who"
+   ]
+  },
+  {
+   "text": "www.example.co.uk/some/page-name_2 and sub.domain.example.com",
+   "urls": [
+    "https://www.example.co.uk/some/page-name_2",
+    "https://sub.domain.example.com"
+   ]
+  },
+  {
+   "text": "line one\nexample.com\nline two\nhttps://www.example.org/two\n",
+   "urls": [
+    "https://www.example.org/two",
+    "https://example.com"
+   ]
+  },
+  {
+   "text": "tabs\tand  spaces nbsp example.com emsp test.org",
+   "urls": [
+    "https://example.com",
+    "https://test.org"
+   ]
+  },
+  {
+   "text": "etc.com e.g.com i.e.com vs.com dr.com Mr.com mrs.com ms.com inc.com ltd.com co.com",
+   "urls": []
+  },
+  {
+   "text": "a-b.example.com -bad.example.com good-.example.com xn--e1afmkfd.xn--p1ai",
+   "urls": [
+    "https://a-b.example.com",
+    "https://bad.example.com",
+    "https://example.com",
+    "https://xn--e1afmkfd.xn"
+   ]
+  },
+  {
+   "text": "https://example.com https://example.com https://example.com/ example.com example.com",
+   "urls": [
+    "https://example.com",
+    "https://example.com/"
+   ]
+  },
+  {
+   "text": "",
+   "urls": []
+  },
+  {
+   "text": "   ",
+   "urls": []
+  }
+ ],
+ "likely": [
+  {
+   "domain": "a.b",
+   "likely": false
+  },
+  {
+   "domain": "abc",
+   "likely": false
+  },
+  {
+   "domain": "abcd",
+   "likely": false
+  },
+  {
+   "domain": "ab.cd",
+   "likely": true
+  },
+  {
+   "domain": "etc.com",
+   "likely": false
+  },
+  {
+   "domain": "Dr.who",
+   "likely": false
+  },
+  {
+   "domain": "x.c",
+   "likely": false
+  },
+  {
+   "domain": "x.c1",
+   "likely": false
+  },
+  {
+   "domain": "foo.bar/baz",
+   "likely": true
+  },
+  {
+   "domain": "foo.b4r",
+   "likely": false
+  },
+  {
+   "domain": "1.2",
+   "likely": false
+  },
+  {
+   "domain": "1.com",
+   "likely": true
+  },
+  {
+   "domain": "co.uk",
+   "likely": false
+  },
+  {
+   "domain": "Inc.org",
+   "likely": false
+  },
+  {
+   "domain": "inc.org",
+   "likely": false
+  },
+  {
+   "domain": "ltd.",
+   "likely": false
+  },
+  {
+   "domain": "e.g.x",
+   "likely": false
+  }
+ ]
+}

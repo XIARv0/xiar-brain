@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "grants": [
+    {"token_sha256": "REPLACE_ME_sha256_hex_of_the_agent_capability", "agent": "example-agent", "user": "owner", "businesses": ["example-business"]}
+  ]
+}

@@ -1,0 +1,51 @@
+XIAR V0 Brain System (memory, memory API, ontology builder/expander, auto-dream,
+neural brain, MirixGovernor ledger, mental models, Swipe Deck)
+Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) and XIAR contributors
+XIAR - https://xiarv0.com
+XIAR by xiarv0.com - https://xiarv0.com
+
+Licensed under the GNU Affero General Public License v3.0 or later, with an
+additional attribution term under section 7(b) ("Powered by XIAR V0"): see
+LICENSE and LICENSE-ADDITIONAL-TERMS.md.
+Third-party components and their licences: see THIRD_PARTY_LICENSES.md.
+
+-------------------------------------------------------------------------------
+MIRIX (modified / ported from MIRIX)
+-------------------------------------------------------------------------------
+The XIAR memory core (core/rust/crates/xiar-memory and related crates) is a
+Rust port of, and contains material modified from, MIRIX:
+  https://github.com/Mirix-AI/MIRIX
+  Copyright Mirix-AI and MIRIX contributors.
+  The upstream LICENSE file also carries "Copyright 2023, Letta authors"
+  (MIRIX derives from Letta, formerly MemGPT).
+  Licensed under the Apache License, Version 2.0
+  (http://www.apache.org/licenses/LICENSE-2.0; full text in
+  core/rust/prompts/mirix/LICENSE).
+Upstream commits used as porting targets: 8cb06a62 (main, 2026-08-20) and
+f7e75fc3 (desktop-agent, 2025-12-03; includes contributions merged from pull
+request #92, also Apache-2.0).
+Changes: the MIRIX Python code (schemas, ORM, memory managers, tools, search,
+filter tags, raw/experience memory, timezone helpers) was rewritten in Rust;
+SQLAlchemy/pgvector storage was replaced by redb + xiar-qdrant-edge; multi-
+tenant scoping, sealing and the governance ledger were added. Files derived
+from MIRIX say so in their module documentation ("Ported from MIRIX ...",
+"Derived from MIRIX ..."). The Rust port is distributed under
+AGPL-3.0-or-later (as permitted by Apache-2.0 section 4), with MIRIX's
+copyright and licence notice preserved here and in THIRD_PARTY_LICENSES.md.
+The original MIRIX prompts are NOT relicensed: they stay under Apache-2.0 in
+core/rust/prompts/mirix/ (see core/rust/prompts/mirix/NOTICE.md).
+
+-------------------------------------------------------------------------------
+qdrant-edge (modified fork)
+-------------------------------------------------------------------------------
+This product includes a modified fork of qdrant-edge 0.8.0
+(https://github.com/qdrant/qdrant), Copyright Qdrant Solutions GmbH, licensed
+under the Apache License, Version 2.0. It stays under Apache-2.0 in
+core/rust/vendor/xiar-qdrant-edge (see LICENSE and NOTICE-XIAR.md there).
+
+-------------------------------------------------------------------------------
+Mistral v0.1 tokenizer
+-------------------------------------------------------------------------------
+core/neural-brain/tokenizers/mistral-v0.1/tokenizer.json is the tokenizer file
+of mistralai/Mistral-7B-v0.1, Copyright Mistral AI, Apache License 2.0 (see
+LICENSE-Apache-2.0.txt in that folder). No model weights are included.
