@@ -1,7 +1,7 @@
 <!-- SPDX-FileCopyrightText: Copyright (c) 2026 Donald Nadeau Jr. (SyberShot) <https://xiarv0.com> -->
 <!-- SPDX-License-Identifier: CC-BY-4.0 -->
 
-# XIAR V0 — Brain System (private preview)
+# XIAR V0 — Brain System
 
 **Powered by XIAR V0 — https://xiarv0.com**
 
@@ -11,7 +11,7 @@ The memory and learning layer of XIAR: MIRIX-style long-term memory in Rust, a t
 an OWL ontology builder/expander, auto-dream consolidation prompts, a small neural "brain" that learns from
 outcomes, the MirixGovernor ledger, 99 mental models and the Swipe Deck.
 
-> **Status: private preview for invited reviewers (Read access).** Not a release. Nothing here is a finished
+> **Status: public pre-release preview.** Not a release. Nothing here is a finished
 > product, and the licence's additional term is a draft awaiting counsel review.
 
 ## What is in this repo

@@ -2,7 +2,7 @@
 <!-- SPDX-License-Identifier: AGPL-3.0-or-later -->
 
 > **DRAFT — FOR COUNSEL REVIEW.** This additional term has not yet been reviewed by a lawyer. It is
-> included in this private preview so reviewers can see the intended terms. Do not rely on it as final
+> included in this public repository so readers can see the intended terms. Do not rely on it as final
 > wording. (XIAR plan §4A.8.)
 
 ```text

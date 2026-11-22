@@ -32,8 +32,8 @@ class Effects(unittest.TestCase):
         self.assertEqual(fx.plan_inverse('voice_noncommercial', {'accepted': True}, {'show_noncommercial': False}), [{'tool': 'voice_noncommercial', 'args': {'accepted': False}}])
         self.assertEqual(fx.plan_inverse('voice_chatterbox_set', {'url': 'http://n'}, {'chatterbox': {'url': 'http://old'}}), [{'tool': 'voice_chatterbox_set', 'args': {'url': 'http://old'}}])
         self.assertEqual(fx.plan_inverse('voice_chatterbox_set', {'url': 'http://n'}, {}), [{'tool': 'voice_chatterbox_set', 'args': {'url': ''}}])
-        self.assertEqual(fx.plan_inverse('voice_agent_set', {'agent': 'cortana', 'id': 'k'}, {'state': {'agents': {'cortana': {'id': 'old'}}}}), [{'tool': 'voice_agent_set', 'args': {'agent': 'cortana', 'id': 'old'}}])
-        self.assertEqual(fx.plan_inverse('voice_agent_set', {'agent': 'cortana', 'id': 'k'}, {'state': {}}), [{'tool': 'voice_agent_set', 'args': {'agent': 'cortana', 'id': ''}}])
+        self.assertEqual(fx.plan_inverse('voice_agent_set', {'agent': 'agent-a', 'id': 'k'}, {'state': {'agents': {'agent-a': {'id': 'old'}}}}), [{'tool': 'voice_agent_set', 'args': {'agent': 'agent-a', 'id': 'old'}}])
+        self.assertEqual(fx.plan_inverse('voice_agent_set', {'agent': 'agent-a', 'id': 'k'}, {'state': {}}), [{'tool': 'voice_agent_set', 'args': {'agent': 'agent-a', 'id': ''}}])
 
     def test_unmap_remaps_the_exact_record(self):
         found = {'id': 'm1', 'path': '/x', 'name': 'n'}
